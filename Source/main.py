@@ -1,4 +1,5 @@
-import datetime
+import time
+from time import localtime, strftime
 import pygame
 import music
 from pygame import mixer
@@ -12,5 +13,13 @@ def delete_last_line():
     #delete last line
     sys.stdout.write('\x1b[2K')
 
-time = datetime.datetime(timeHMS)
-print(time)
+userTime = input("Put your desired time in here: ")
+
+run = True
+while run == True:
+    mTime = strftime("%H:%M", localtime())
+    if mTime == userTime:   
+        run = False
+
+music.music()
+stop = int(input("Type 1 and press enter to stop the alarm clock: "))
