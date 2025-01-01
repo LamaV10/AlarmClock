@@ -1,49 +1,33 @@
-echo "What do you want to modify?"
-echo "Wich Song is going to be played (1) or path of the Timer-folder in timer.sh (2):"
+echo "What do you want to setup?"
+echo "Wich Song is going to be played (1) or path of the Alarm-Clock-folder in timer.sh (2):"
 read modify
 
 
-
-echo "Which editor do you want to use?"
-echo "1: NeoVim"
-echo "2: Vim"
-echo "3: Vi"
-echo "4: Nano"
-echo "5: Vscodium"
-echo "6: Vscode"
-echo "Your editors number: "
-
-read ide
-
-  if [ $ide -eq 1 ]; then
-    ide=nvim
-
-  elif [ $ide -eq 2 ]; then
-    ide=vim
-  
-  elif [ $ide -eq 3 ]; then
-    ide=vi
-
-  elif [ $ide -eq 4 ]; then
-    ide=nano
-  
-  elif [ $ide -eq 5 ]; then
-    ide=vscodium
-  
-  elif [ $ide -eq 6 ]; then
-    ide=code
-
-  elif [ $ide -ne "12345" ]; then
-    echo "Invalid number for editor!"
-
-fi
-
-
 if [ $modify -eq 1 ]; then
+  echo "Please enter the location of your music file: "
+  read musicLocation
+
   cd Source/
-  $ide music.py
+  echo "import pygame
+from pygame import mixer
+pygame.init()
+
+def music():
+      # music import/play
+      # change your path to your music here:
+      mixer.music.load('$musicLocation')
+      
+
+      mixer.music.set_volume(0.5)
+      mixer.music.play(-1)" > music.py
 fi
+
 
 if [ $modify -eq 2 ]; then
-  $ide timer.sh 
-fi 
+  path="$(pwd)" 
+
+  echo "cd $path/Source
+python main.py" > alarmClock.sh
+
+  echo "The path was setup. You can now copy this script into your /bin directory for easier acces!"
+fi
